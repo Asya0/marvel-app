@@ -1,10 +1,10 @@
 import { createRoot } from "react-dom/client";
 import App from "./components/app/App";
 import "./style/style.scss";
-import MarvelServices from "./services/MarvelService";
+// import MarvelServices from "./services/MarvelService";
 
-const marvelService = new MarvelServices();
-marvelService.getCharacter(3).then(res => {console.log(res)})
+// const marvelService = new MarvelServices();
+// marvelService.getCharacter(3).then(res => {console.log(res)})
 // marvelService.getAllCharacters().then(res =>  res.data.results.forEach(item => {
 //     console.log(item.name)
 // }))

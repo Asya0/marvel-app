@@ -1,14 +1,41 @@
 import { Component } from "react";
 import "./randomChar.scss";
 import mjolnir from "../../resources/img/mjolnir.png";
+import MarvelServices from "../../services/MarvelService";
 
 class RandomChar extends Component {
+  constructor(props) {
+    super(props);
+    //вызов методов в конструкторах, особенно тех, которые общаются с сервером -> плохая практика
+    this.updateChar();
+  }
+
   state = {
     name: null,
     description: null,
     thumbnail: null,
     homepage: null,
     wiki: null,
+  };
+
+  marvelService = new MarvelServices(); // создание нового свойства внутри класса RandomChar
+
+  //метод, который будет обращаться к серверу, будет получать данные и записывать в стейт
+  //исп. стрелочную функцию чтобы не терять контекст
+  updateChar = () => {
+    const id = Math.floor(Math.random() * (20 - 1) + 1);
+    this.marvelService.getCharacter(id).then((res) => {
+      this.setState({
+        name: res.data.results[0].name,
+        description: res.data.results[0].description,
+        thumbnail:
+          res.data.results[0].thumbnail.path +
+          "." +
+          res.data.results[0].thumbnail.extension,
+        homepage: res.data.results[0].urls[0].url,
+        wiki: res.data.results[0].urls[1].url,
+      });
+    });
   };
 
   render() {
