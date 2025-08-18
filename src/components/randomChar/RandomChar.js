@@ -17,7 +17,7 @@ class RandomChar extends Component {
   marvelService = new MarvelServices(); // создание нового свойства внутри класса RandomChar
 
   onCharLoaded = (char) => {
-    this.setState(char);
+    this.setState({ char });
   };
 
   //метод, который будет обращаться к серверу, будет получать данные и записывать в стейт
@@ -28,7 +28,9 @@ class RandomChar extends Component {
   };
 
   render() {
-    const { name, description, thumbnail, homepage, wiki } = this.state;
+    const {
+      char: { name, description, thumbnail, homepage, wiki },
+    } = this.state;
     return (
       <div className="randomchar">
         <div className="randomchar__block">
@@ -39,7 +41,9 @@ class RandomChar extends Component {
           />
           <div className="randomchar__info">
             <p className="randomchar__name">{name}</p>
-            <p className="randomchar__descr">{description}</p>
+            <p className="randomchar__descr">
+              {description ? description : "Данных про этого персонажа нет"}
+            </p>
             <div className="randomchar__btns">
               <a href={homepage} className="button button__main">
                 <div className="inner">homepage</div>
