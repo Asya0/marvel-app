@@ -6,12 +6,6 @@ import ErrorMessage from "../errorMessage/ErrorMessage";
 import MarvelServices from "../../services/MarvelService";
 
 class RandomChar extends Component {
-  constructor(props) {
-    super(props);
-    //вызов методов в конструкторах, особенно тех, которые общаются с сервером -> плохая практика
-    this.updateChar();
-  }
-
   state = {
     char: {},
     loading: true,
@@ -37,6 +31,15 @@ class RandomChar extends Component {
       .then(this.onCharLoaded)
       .catch(this.onError);
   };
+
+  componentDidMount() {
+    this.updateChar();
+    // this.timerId = setInterval(this.updateChar, 10000);
+  }
+
+  componentWillUnmount() {
+    // clearInterval(this.timerId);
+  }
 
   render() {
     const { char, loading, error } = this.state;
